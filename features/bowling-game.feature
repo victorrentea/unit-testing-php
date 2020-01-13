@@ -1,8 +1,5 @@
 Feature: Bowling Gmae
 
-  Background:
-    Given: Current user is 'test'
-
   Scenario: Initial Bowling Game
     When The score string is '--'
     Then The final score is 0
