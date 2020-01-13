@@ -87,7 +87,7 @@ stub:
         const FAILURE = 1;
     }
 
-    \Mockery::mock('Fetcher', 'FetcherStub')
+    \Mockery::namedMock('Fetcher', 'FetcherStub')
         ->shouldReceive('fetch')
         ->andReturn(0);
 
@@ -171,7 +171,7 @@ It can be mocked with:
 
 .. code-block:: php
 
-    \Mockery()->getConfiguration->setConstantsMap([
+    \Mockery::getConfiguration()->setConstantsMap([
         'Fetcher' => [
             'SUCCESS' => 'success',
             'FAILURE' => 'fail',
