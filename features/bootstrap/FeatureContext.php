@@ -6,63 +6,48 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Mockery\MockInterface;
 use PhpUnitWorkshopTest\BowlingScore;
+use PhpUnitWorkshopTest\TennisGame;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext extends \PHPUnit\Framework\TestCase implements Context
 {
-    /** @var BowlingGameCuDependinte */
-    private $service;
-    /** @var ScoreProvider|MockInterface */
-    private $mockScoreProvider;
+    /** @var TennisGame */
+    private $tennisGame;
+
     /**
-     * @When /^The score string is '(.*)'$/
+     * @Given /^A new game$/
      */
-    public function theScoreStringIs(string $inputScoreString)
+    public function aNewGame()
     {
-        $this->mockScoreProvider->shouldReceive("getScore")
-            ->andReturn($inputScoreString);
+        $this->tennisGame = new TennisGame();
     }
 
     /**
-     * @Then /^The final score is (\d+)$/
+     * @Then /^Score is "([^\"]+)"$/
      */
-    public function theFinalScoreIs($expectedTotalScore)
+    public function scoreIs(string $expectedScoreString)
     {
-       $this->assertEquals($expectedTotalScore, $this->service->calculateScore());
+        $score = $this->tennisGame->score();
+        self::assertEquals($expectedScoreString, $score, "Actual = " . $score);
     }
 
     /**
-     * @Given /^A mock Score String Provider$/
+     * @When /^Player(\d) scores one point$/
      */
-    public function aMockScoreStringProvider()
+    public function playerscoresOnePoint(int $playerId)
     {
-        $this->mockScoreProvider = Mockery::mock(ScoreProvider::class);
+        $this->tennisGame->pointWon($playerId);
+    }
 
-        $this->service = new BowlingGameCuDependinte($this->mockScoreProvider);
+    /**
+     * @When /^Player(\d) scores (\d+) points$/
+     */
+    public function playerScoresPoints(int $playerId, int $points)
+    {
+        for ($i = 0; $i < $points; $i++) {
+            $this->tennisGame->pointWon($playerId);
+        }
     }
 }
-
-
-class BowlingGameCuDependinte {
-    private $scoreProvider;
-
-    public function __construct(ScoreProvider $scoreProvider)
-    {
-        $this->scoreProvider = $scoreProvider;
-    }
-
-    public function calculateScore(): int {
-        return BowlingScore::calculateScore($this->scoreProvider->getScore());
-    }
-
-}
-class ScoreProvider {
-
-    public function getScore():string
-    {
-        throw new Exception("E inchis la non-stop");
-    }
-}
-

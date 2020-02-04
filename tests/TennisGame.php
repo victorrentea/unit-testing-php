@@ -38,10 +38,12 @@ class TennisGame
 
     public function pointWon(int $playerId)
     {
+        assert($playerId == 1 || $playerId == 2);
         if ($playerId == 1) {
             $this->player1Points++;
         } else {
             $this->player2Points++;
         }
     }
+
 }
