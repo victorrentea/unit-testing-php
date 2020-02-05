@@ -10,7 +10,7 @@ class CustomerValidator
     public function validate(Customer $customer)
     {
         if ($customer->getName() == '') {
-            throw new \Exception("Missing customer name");
+            throw new \Exception("Missing Customer Name");
         }
         $this->validateAddress($customer->getAddress());
 //etc
@@ -18,52 +18,13 @@ class CustomerValidator
 
     private function validateAddress(Address $address)
     {
-        if ($address->getCity()) {
-            throw new \Exception("Missing address xcity");
+        if ($address->getCity() == '') {
+            throw new \Exception("Missing address city", 563);
         }
     }
 }
 
-class Address
-{
-    private $city;
-    private $streetAddress;
+//abuziv: o faci doar daca chiar o prinzi selectiv
+class CustomerWithNoNameException extends \Exception {
 
-    public function __construct(string $city, string $streetAddress)
-    {
-        $this->city = $city;
-        $this->streetAddress = $streetAddress;
-    }
-
-    public function getCity(): string
-    {
-        return $this->city;
-    }
-
-    public function getStreetAddress(): string
-    {
-        return $this->streetAddress;
-    }
-}
-
-class Customer
-{
-    private $name;
-    private $address;
-
-    public function __construct(string $name, Address $address)
-    {
-        $this->name = $name;
-        $this->address = $address;
-    }
-
-    public function getAddress(): Address
-    {
-        return $this->address;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
 }
