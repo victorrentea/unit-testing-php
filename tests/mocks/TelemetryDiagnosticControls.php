@@ -6,12 +6,14 @@
  * Time: 12:38 PM
  */
 
-namespace PhpUnitWorkshop\mocks;
+namespace PhpUnitWorkshopTest\mocks;
 
 
 use function time;
 use function uniqid;
 
+
+// CERN - -obal -avoda
 class TelemetryDiagnosticControls
 {
     public const DIAGNOSTIC_CHANNEL_CONNECTION_STRING = '*111#';
@@ -29,9 +31,17 @@ class TelemetryDiagnosticControls
         $this->diagnosticInfo = $diagnosticInfo;
     }
 
+    /**
+     * @param mixed $telemetryClient
+     */
+    public function setTelemetryClient($telemetryClient): void
+    {
+        $this->telemetryClient = $telemetryClient;
+    }
+
     public function checkTransmission()
     {
-        $this->telemetryClient->disconnect();
+        $this->telemetryClient->disconnect(); //
 
         $currentRetry = 1;
         while (!$this->telemetryClient->getOnlineStatus() && $currentRetry <= 3) {
@@ -39,19 +49,22 @@ class TelemetryDiagnosticControls
             $currentRetry++;
         }
 
-
         if (!$this->telemetryClient->getOnlineStatus()) {
             throw new \Exception("Unable to connect.");
         }
+        $this->telemetryClient->configure($this->createConfig());
 
+        $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
+        $this->diagnosticInfo = $this->telemetryClient->receive();
+    }
+
+    public function createConfig(): TelemetryClientConfiguration
+    {
         $config = new TelemetryClientConfiguration();
         $config->setSessionId(uniqid());
         $config->setSessionStart(time());
         $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL);
-        $this->telemetryClient->configure($config);
-
-        $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
-        $this->diagnosticInfo = $this->telemetryClient->receive();
+        return $config;
     }
 
 
