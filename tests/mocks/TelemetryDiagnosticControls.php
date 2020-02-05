@@ -18,8 +18,15 @@ class TelemetryDiagnosticControls
 {
     public const DIAGNOSTIC_CHANNEL_CONNECTION_STRING = '*111#';
 
+    private $configFactory;
     private $telemetryClient;
     private $diagnosticInfo = "";
+
+    public function __construct(ClientConfigurationFactory $configFactory, TelemetryClient $telemetryClient)
+    {
+        $this->configFactory = $configFactory;
+        $this->telemetryClient = $telemetryClient;
+    }
 
     public function getDiagnosticInfo(): String
     {
@@ -58,6 +65,11 @@ class TelemetryDiagnosticControls
         $this->diagnosticInfo = $this->telemetryClient->receive();
     }
 
+
+
+}
+
+class ClientConfigurationFactory {
     public function createConfig(): TelemetryClientConfiguration
     {
         $config = new TelemetryClientConfiguration();
@@ -66,6 +78,5 @@ class TelemetryDiagnosticControls
         $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL);
         return $config;
     }
-
 
 }

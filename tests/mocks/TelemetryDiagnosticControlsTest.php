@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
 class TelemetryDiagnosticControlsTest extends TestCase
 {
     private $client;
+    private $configFactory;
     /**
      * @var TelemetryDiagnosticControls
      */
@@ -24,7 +25,8 @@ class TelemetryDiagnosticControlsTest extends TestCase
     protected function setUp()
     {
         $this->client = $this->createMock(TelemetryClient::class);
-        $this->controls = new TelemetryDiagnosticControls();
+        $this->configFactory = $this->createMock(ClientConfigurationFactory::class);
+        $this->controls = new TelemetryDiagnosticControls($this->configFactory, $this->client);
         $this->controls->setTelemetryClient($this->client);
     }
 
