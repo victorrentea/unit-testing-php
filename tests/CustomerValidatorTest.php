@@ -35,7 +35,7 @@ class CustomerValidatorTest extends TestCase
     /** @test
      * @throws \Exception
      * @expectedException \Exception
-     * @expectedExceptionCode 13
+     * @expectedExceptionCode customer.address.city.missing
      */
 //    public function customerAndThisAndThatWithEmptyName_isRejected() {
     public function throwsForCustomerWithEmptyAddressCityName() {
