@@ -19,7 +19,7 @@ class CustomerValidator
     /** @throws \Exception */
     private function validateAddress(Address $address)
     {
-        if ($address->getCity() == '') {
+        if (empty($address->getCity())) {
             throw new \Exception("customer.address.city.missing");
         }
         if ($address->getStreetAddress() == '') {
@@ -74,7 +74,7 @@ class Address
 
 class Customer
 {
-    private $name;
+    private String $name;
     private $address;
     /** @var array Phone[]  */
     private array $phones;
