@@ -10,46 +10,36 @@ class CustomerValidatorTest extends TestCase
 {
 
     private CustomerValidator $validator;
-    private Address $address;
-    private Customer $customer;
-    private int $x = 1;
-
-
-    public function __construct($name = null, array $data = [], $dataName = '')
-    {
-        parent::__construct($name, $data, $dataName);
-        echo "Uaaaa Uaaa!\n";
-    }
 
     protected function setUp()
     {
         $this->validator = new CustomerValidator();
-        $this->address = new Address("Bucharest", "Dristorului");
-        $this->customer = new Customer("jdoe", $this->address);
     }
 
-    /** @test
-     * @throws \Exception
-     * @expectedException \Exception
-     */
-    public function throwsForCustomerWithEmptyName() {
-        $this->x = 2;
-        $this->customer->setCustomerName("");
-
-        $this->validator->validate($this->customer);
+    private function aValidCustomer(): Customer
+    {
+        return new Customer("jdoe", $this->aValidAddress());
+    }
+    private function aValidAddress(): Address
+    {
+        return new Address("Bucharest", "Dristorului");
     }
 
     /** @test
      * @throws \Exception
      */
     public function first() {
-        $this->validator->validate($this->customer);
-        self::assertEquals(1, $this->x);
+        $this->validator->validate($this->aValidCustomer());
     }
 
 
-
-
+    /** @test
+     * @throws \Exception
+     * @expectedException \Exception
+     */
+    public function throwsForCustomerWithEmptyName() {
+        $this->validator->validate($this->aValidCustomer()->setCustomerName(""));
+    }
 
 
     /** @test
@@ -58,8 +48,9 @@ class CustomerValidatorTest extends TestCase
      * @expectedExceptionMessage customer.address.city.missing
      */
     public function throwsForCustomerWithEmptyAddressCityName() {
-        $address = new Address("", "Dristorului");
-        $customer = new Customer("jjjj", $address);
+        $customer = $this->aValidCustomer()
+            ->setAddress($this->aValidAddress()->setCity(""));
+
         $this->validator->validate($customer);
     }
 
@@ -69,10 +60,11 @@ class CustomerValidatorTest extends TestCase
      * @expectedExceptionMessage customer.address.street.missing
      */
     public function throwsForCustomerWithEmptyAddressStreet() {
-        $address = new Address("City", "");
-        $customer = new Customer("Name", $address);
+        $customer = $this->aValidCustomer()->setAddress($this->aValidAddress()->setStreetAddress(""));
         $this->validator->validate($customer);
     }
+
+
 
 
 }

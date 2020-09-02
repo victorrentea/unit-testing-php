@@ -45,6 +45,7 @@ class Address
         $this->streetAddress = $streetAddress;
     }
 
+
     public function getCity(): string
     {
         return $this->city;
@@ -54,12 +55,29 @@ class Address
     {
         return $this->streetAddress;
     }
+
+    public function setCity(string $city): Address
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @param string $streetAddress
+     */
+    public function setStreetAddress(string $streetAddress): Address
+    {
+        $this->streetAddress = $streetAddress;
+        return $this;
+    }
 }
 
 class Customer
 {
     private $name;
     private $address;
+    /** @var array Phone[]  */
+    private array $phones;
 
     public function __construct(string $name, Address $address)
     {
@@ -67,6 +85,17 @@ class Customer
         $this->address = $address;
     }
 
+//    public function addPhone(Phone phone)
+
+
+    /**
+     * @param Address $address
+     */
+    public function setAddress(Address $address): Customer
+    {
+        $this->address = $address;
+        return $this;
+    }
     public function getAddress(): Address
     {
         return $this->address;
@@ -77,8 +106,9 @@ class Customer
         return $this->name;
     }
 
-    public function setCustomerName(string $name)
+    public function setCustomerName(string $name): Customer
     {
         $this->name = $name;
+        return $this;
     }
 }
