@@ -22,6 +22,9 @@ class CustomerValidator
         if ($address->getCity() == '') {
             throw new \Exception("customer.address.city.missing");
         }
+        if ($address->getStreetAddress() == '') {
+            throw new \Exception("customer.address.street.missing");
+        }
     }
 }
 

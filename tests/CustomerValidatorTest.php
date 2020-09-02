@@ -35,13 +35,24 @@ class CustomerValidatorTest extends TestCase
     /** @test
      * @throws \Exception
      * @expectedException \Exception
-     * @expectedExceptionCode customer.address.city.missing
+     * @expectedExceptionMessage customer.address.city.missing
      */
-//    public function customerAndThisAndThatWithEmptyName_isRejected() {
     public function throwsForCustomerWithEmptyAddressCityName() {
         $validator = new CustomerValidator();
         $address = new Address("", "Dristorului");
         $customer = new Customer("jjjj", $address);
+        $validator->validate($customer);
+    }
+
+    /** @test
+     * @throws \Exception
+     * @expectedException \Exception
+     * @expectedExceptionMessage customer.address.street.missing
+     */
+    public function throwsForCustomerWithEmptyAddressStreet() {
+        $validator = new CustomerValidator();
+        $address = new Address("City", "");
+        $customer = new Customer("Name", $address);
         $validator->validate($customer);
     }
 
