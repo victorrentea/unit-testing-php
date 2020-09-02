@@ -9,26 +9,30 @@ use PHPUnit\Framework\TestCase;
 class CustomerValidatorTest extends TestCase
 {
 
+    private CustomerValidator $validator;
+
+    protected function setUp()
+    {
+        $this->validator = new CustomerValidator();
+    }
+
     /** @test
      * @throws \Exception
      */
     public function first() {
-        $validator = new CustomerValidator();
         $address = new Address("Bucharest", "Dristorului");
         $customer = new Customer("jdoe", $address);
-        $validator->validate($customer);
+        $this->validator->validate($customer);
     }
 
     /** @test
      * @throws \Exception
      * @expectedException \Exception
      */
-//    public function customerAndThisAndThatWithEmptyName_isRejected() {
     public function throwsForCustomerWithEmptyName() {
-        $validator = new CustomerValidator();
         $address = new Address("Bucharest", "Dristorului");
         $customer = new Customer("", $address);
-        $validator->validate($customer);
+        $this->validator->validate($customer);
     }
 
 
@@ -38,10 +42,9 @@ class CustomerValidatorTest extends TestCase
      * @expectedExceptionMessage customer.address.city.missing
      */
     public function throwsForCustomerWithEmptyAddressCityName() {
-        $validator = new CustomerValidator();
         $address = new Address("", "Dristorului");
         $customer = new Customer("jjjj", $address);
-        $validator->validate($customer);
+        $this->validator->validate($customer);
     }
 
     /** @test
@@ -50,10 +53,9 @@ class CustomerValidatorTest extends TestCase
      * @expectedExceptionMessage customer.address.street.missing
      */
     public function throwsForCustomerWithEmptyAddressStreet() {
-        $validator = new CustomerValidator();
         $address = new Address("City", "");
         $customer = new Customer("Name", $address);
-        $validator->validate($customer);
+        $this->validator->validate($customer);
     }
 
 
