@@ -25,41 +25,41 @@ class CustomerValidatorTest extends TestCase
         return new Address("Bucharest", "Dristorului");
     }
 
-    /** @test
+    /**
      * @throws \Exception
      */
-    public function first() {
+    public function testValid() {
         $this->validator->validate($this->aValidCustomer());
     }
 
 
-    /** @test
+    /**
      * @throws \Exception
      * @expectedException \Exception
      */
-    public function throwsForCustomerWithEmptyName() {
+    public function testThrowsForCustomerWithEmptyName() {
         $this->validator->validate($this->aValidCustomer()->setCustomerName(""));
     }
 
 
-    /** @test
+    /**
      * @throws \Exception
      * @expectedException \Exception
      * @expectedExceptionMessage customer.address.city.missing
      */
-    public function throwsForCustomerWithEmptyAddressCityName() {
+    public function testThrowsForCustomerWithEmptyAddressCityName() {
         $customer = $this->aValidCustomer()
             ->setAddress($this->aValidAddress()->setCity(""));
 
         $this->validator->validate($customer);
     }
 
-    /** @test
+    /**
      * @throws \Exception
      * @expectedException \Exception
      * @expectedExceptionMessage customer.address.street.missing
      */
-    public function throwsForCustomerWithEmptyAddressStreet() {
+    public function testThrowsForCustomerWithEmptyAddressStreet() {
         $customer = $this->aValidCustomer()->setAddress($this->aValidAddress()->setStreetAddress(""));
         $this->validator->validate($customer);
     }
