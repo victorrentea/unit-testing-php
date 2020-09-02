@@ -20,7 +20,7 @@ class CustomerValidator
     private function validateAddress(Address $address)
     {
         if ($address->getCity() == '') {
-            throw new \Exception("Missing address xcity");
+            throw new \Exception("", 13);
         }
     }
 }
