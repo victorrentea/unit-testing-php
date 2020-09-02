@@ -34,13 +34,14 @@ class CustomerValidatorTest extends TestCase
 
     /** @test
      * @throws \Exception
-     * @expectedException \PhpUnitWorkshopTest\CustomerWithoutAddressCityValidationError
+     * @expectedException \Exception
+     * @expectedExceptionMessage Missing address xcity
      */
 //    public function customerAndThisAndThatWithEmptyName_isRejected() {
     public function throwsForCustomerWithEmptyAddressCityName() {
         $validator = new CustomerValidator();
         $address = new Address("", "Dristorului");
-        $customer = new Customer("", $address);
+        $customer = new Customer("jjjj", $address);
         $validator->validate($customer);
     }
 
