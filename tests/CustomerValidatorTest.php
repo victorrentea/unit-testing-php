@@ -10,19 +10,22 @@ class CustomerValidatorTest extends TestCase
 {
 
     private CustomerValidator $validator;
+    private Address $address;
+    private Customer $customer;
+    private int $x = 1;
+
+
+    public function __construct($name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+        echo "Uaaaa Uaaa!\n";
+    }
 
     protected function setUp()
     {
         $this->validator = new CustomerValidator();
-    }
-
-    /** @test
-     * @throws \Exception
-     */
-    public function first() {
-        $address = new Address("Bucharest", "Dristorului");
-        $customer = new Customer("jdoe", $address);
-        $this->validator->validate($customer);
+        $this->address = new Address("Bucharest", "Dristorului");
+        $this->customer = new Customer("jdoe", $this->address);
     }
 
     /** @test
@@ -30,10 +33,23 @@ class CustomerValidatorTest extends TestCase
      * @expectedException \Exception
      */
     public function throwsForCustomerWithEmptyName() {
-        $address = new Address("Bucharest", "Dristorului");
-        $customer = new Customer("", $address);
-        $this->validator->validate($customer);
+        $this->x = 2;
+        $this->customer->setCustomerName("");
+
+        $this->validator->validate($this->customer);
     }
+
+    /** @test
+     * @throws \Exception
+     */
+    public function first() {
+        $this->validator->validate($this->customer);
+        self::assertEquals(1, $this->x);
+    }
+
+
+
+
 
 
     /** @test

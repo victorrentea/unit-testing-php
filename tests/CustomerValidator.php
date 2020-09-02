@@ -76,4 +76,9 @@ class Customer
     {
         return $this->name;
     }
+
+    public function setCustomerName(string $name)
+    {
+        $this->name = $name;
+    }
 }
