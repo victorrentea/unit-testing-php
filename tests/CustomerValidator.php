@@ -6,7 +6,7 @@ namespace PhpUnitWorkshopTest;
 
 class CustomerValidator
 {
-
+    /** @throws \Exception */
     public function validate(Customer $customer)
     {
         if ($customer->getName() == '') {
@@ -16,9 +16,10 @@ class CustomerValidator
 //etc
     }
 
+    /** @throws \Exception */
     private function validateAddress(Address $address)
     {
-        if ($address->getCity()) {
+        if ($address->getCity() == '') {
             throw new \Exception("Missing address xcity");
         }
     }
