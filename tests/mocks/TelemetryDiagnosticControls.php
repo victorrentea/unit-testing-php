@@ -15,7 +15,18 @@ class TelemetryDiagnosticControls
 
     private $telemetryClient;
     private $diagnosticInfo = "";
+    /**
+     * @var TelemetryClientConfiguration
+     */
+    private TelemetryClientConfiguration $configField;
 
+    /**
+     * @return TelemetryClientConfiguration
+     */
+    public function getConfigField(): TelemetryClientConfiguration
+    {
+        return $this->configField;
+    }
     public function __construct(TelemetryClient $telemetryClient)
     {
         $this->telemetryClient = $telemetryClient;
@@ -50,10 +61,12 @@ class TelemetryDiagnosticControls
         $config->setSessionStart(time());
         $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL); //this?!
         $this->telemetryClient->configure($config); // OK
+        $this->configField = $config;
 
         $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
         $this->diagnosticInfo = $this->telemetryClient->receive();
     }
+
 
 
 }
