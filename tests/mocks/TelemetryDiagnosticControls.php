@@ -33,7 +33,7 @@ class TelemetryDiagnosticControls
 
     public function checkTransmission()
     {
-        $this->telemetryClient->disconnect();
+        $this->telemetryClient->disconnect(); // OK
 
         $currentRetry = 1;
         while (!$this->telemetryClient->getOnlineStatus() && $currentRetry <= 3) {
@@ -42,7 +42,7 @@ class TelemetryDiagnosticControls
         }
 
         if (!$this->telemetryClient->getOnlineStatus()) {
-            throw new \Exception("Unable to connect.");
+            throw new \Exception("Unable to connect."); // THIS
         }
 
         $config = new TelemetryClientConfiguration();

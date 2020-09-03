@@ -20,7 +20,11 @@ class TelemetryDiagnosticControlsTest extends TestCase
     public function first() {
 //        $client = new TelemetryClient();
         $client = $this->createMock(TelemetryClient::class);
+        $client->method("getOnlineStatus")->willReturn(true);
         $controls = new TelemetryDiagnosticControls($client);
+        $client->expects($this->once())->method("disconnect");
+
         $controls->checkTransmission();
+
     }
 }
