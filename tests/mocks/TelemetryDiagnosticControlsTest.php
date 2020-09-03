@@ -44,6 +44,20 @@ class TelemetryDiagnosticControlsTest extends MyTestCaseHelper
         self::assertEquals("mushrooms", $this->controls->getDiagnosticInfo());
     }
 
+    /** @test */
+    public function configuresClient()
+    {
+        $this->client->method("getOnlineStatus")->willReturn(true);
+        $this->client->expects($this->once())
+            ->method("configure")
+            ->will($this->returnCallback(function(TelemetryClientConfiguration $config) {
+                self::assertEquals(TelemetryClientConfiguration::ACK_NORMAL, $config->getAckMode());
+            }));
+        ; // external protocol/format
+
+        $this->controls->checkTransmission();
+    }
+
 
     /** @test
      * @expectedException \Exception

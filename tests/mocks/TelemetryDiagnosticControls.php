@@ -48,8 +48,8 @@ class TelemetryDiagnosticControls
         $config = new TelemetryClientConfiguration();
         $config->setSessionId(uniqid());
         $config->setSessionStart(time());
-        $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL);
-        $this->telemetryClient->configure($config);
+        $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL); //this?!
+        $this->telemetryClient->configure($config); // OK
 
         $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
         $this->diagnosticInfo = $this->telemetryClient->receive();
