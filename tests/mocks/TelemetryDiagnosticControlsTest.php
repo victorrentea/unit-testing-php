@@ -10,21 +10,44 @@ namespace PhpUnitWorkshopTest\mocks;
 
 
 use PHPUnit\Framework\TestCase;
-use PhpUnitWorkshopTest\mocks\TelemetryClient;
-use PhpUnitWorkshopTest\mocks\TelemetryDiagnosticControls;
 
 class TelemetryDiagnosticControlsTest extends TestCase
 {
 
     /** @test */
-    public function first() {
-//        $client = new TelemetryClient();
+    public function disconnects()
+    {
         $client = $this->createMock(TelemetryClient::class);
         $client->method("getOnlineStatus")->willReturn(true);
         $controls = new TelemetryDiagnosticControls($client);
         $client->expects($this->once())->method("disconnect");
+        $controls->checkTransmission();
+    }
+    /** @test */
+    public function sendsDiagnosticControls()
+    {
+        $client = $this->createMock(TelemetryClient::class);
+        $client->method("getOnlineStatus")->willReturn(true);
+        $controls = new TelemetryDiagnosticControls($client);
+
+
+        // $client->expects($this->once())->method("send")->with(TelemetryClient::DIAGNOSTIC_MESSAGE);
+
+        // external protocol/format
+        $client->expects($this->once())->method("send")->with("AT#UD");
 
         $controls->checkTransmission();
+    }
 
+
+    /** @test
+     * @expectedException \Exception
+     */
+    public function throwsWhenNotOnline()
+    {
+        $client = $this->createMock(TelemetryClient::class);
+        $client->method("getOnlineStatus")->willReturn(false);
+        $controls = new TelemetryDiagnosticControls($client);
+        $controls->checkTransmission();
     }
 }
