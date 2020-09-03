@@ -6,7 +6,7 @@
  * Time: 12:38 PM
  */
 
-namespace PhpUnitWorkshop\mocks;
+namespace PhpUnitWorkshopTest\mocks;
 
 
 class TelemetryDiagnosticControls

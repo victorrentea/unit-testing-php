@@ -6,7 +6,7 @@
  * Time: 12:55 PM
  */
 
-namespace PhpUnitWorkshop\mocks;
+namespace PhpUnitWorkshopTest\mocks;
 
 
 class Random
