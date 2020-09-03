@@ -6,6 +6,11 @@ namespace PhpUnitWorkshopTest;
 
 class CustomerValidator
 {
+    /**
+     * @var string
+     */
+    private string $useCase;
+
     /** @throws \Exception */
     public function validate(Customer $customer)
     {
@@ -22,9 +27,16 @@ class CustomerValidator
         if (empty($address->getCity())) {
             throw new \Exception("customer.address.city.missing");
         }
-        if ($address->getStreetAddress() == '') {
-            throw new \Exception("customer.address.street.missing");
+        if ($this->useCase === "placeOrder") {
+            if ($address->getStreetAddress() == '') {
+                throw new \Exception("customer.address.street.missing");
+            }
         }
+    }
+
+    public function setUseCase(string $useCase)
+    {
+        $this->useCase = $useCase;
     }
 }
 
