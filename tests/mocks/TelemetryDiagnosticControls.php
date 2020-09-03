@@ -41,24 +41,18 @@ class TelemetryDiagnosticControls
             $currentRetry++;
         }
 
-
         if (!$this->telemetryClient->getOnlineStatus()) {
             throw new \Exception("Unable to connect.");
         }
 
-        $this->telemetryClient->configure($this->createConfiguration());
-
-        $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
-        $this->diagnosticInfo = $this->telemetryClient->receive();
-    }
-
-    public function createConfiguration(): TelemetryClientConfiguration
-    {
         $config = new TelemetryClientConfiguration();
         $config->setSessionId(uniqid());
         $config->setSessionStart(time());
         $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL);
-        return $config;
+        $this->telemetryClient->configure($config);
+
+        $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
+        $this->diagnosticInfo = $this->telemetryClient->receive();
     }
 
 

@@ -25,7 +25,7 @@ Feature: Tennis Score
     Then The score is "Fifteen-Forty"
 
   ############## SCENARIO OUTLINE (data table) ##################
-  Scenario Outline: Un tabel de date
+  Scenario Outline: A data table
     Given An empty game
     When Player1 scores <player1points> points
     And Player2 scores <player2points> points

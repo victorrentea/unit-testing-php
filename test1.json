@@ -1,0 +1,34 @@
+[
+  {
+    "player1score": {
+      "asdsad": {
+      }
+    },
+    "player2score": 2,
+    "expectedScore": "LoveLove"
+  },
+  {
+    "player1score": {
+      "asdsad": {
+      }
+    },
+    "player2score": 2,
+    "expectedScore": "LoveLove"
+  }
+  {
+    "player1score": {
+      "asdsad": {
+      }
+    },
+    "player2score": 2,
+    "expectedScore": "LoveLove"
+  }
+  {
+    "player1score": {
+      "asdsad": {
+      }
+    },
+    "player2score": 2,
+    "expectedScore": "LoveLove"
+  }
+]

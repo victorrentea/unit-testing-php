@@ -43,6 +43,14 @@ class FeatureContext extends \PHPUnit\Framework\TestCase implements Context
             $this->tennisScore->addPoint($player);
         }
     }
+
+    /**
+     * @When /^Player1 scores (\d+) points XX$/
+     */
+    public function playerscoresPointsXX($arg1, $arg2)
+    {
+        throw new PendingException();
+    }
 }
 
 
