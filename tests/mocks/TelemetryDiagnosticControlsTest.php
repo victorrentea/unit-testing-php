@@ -30,26 +30,14 @@ class TelemetryDiagnosticControlsTest extends MyTestCaseHelper
 //        $this->client = $this->createMock("PhpUnitWorkshopTest\mocks\TelemetryClient");
         $this->client = $this->createMock(TelemetryClient::class);
         $this->controls = new TelemetryDiagnosticControls($this->client);
-        $this->client->method("getOnlineStatus")->willReturn(true);
     }
 
     /** @test */
-    public function disconnects()
+    public function suucessFlow()
     {
+        $this->client->method("getOnlineStatus")->willReturn(true);
         $this->client->expects($this->once())->method("disconnect");
-        $this->controls->checkTransmission();
-    }
-    /** @test */
-    public function sendsDiagnosticControls()
-    {
-        // $client->expects($this->once())->method("send")->with(TelemetryClient::DIAGNOSTIC_MESSAGE);
         $this->client->expects($this->once())->method("send")->with("AT#UD"); // external protocol/format
-        $this->controls->checkTransmission();
-    }
-    /** @test */
-    public function receives()
-    {
-//        $this->client->expects($this->once())->method("receive")->willReturn("mushrooms"); // only if the stubbed method is EXPENSIVE
          $this->client->method("receive")->willReturn("mushrooms");
 
         $this->controls->checkTransmission();
