@@ -15,18 +15,6 @@ class TelemetryDiagnosticControls
 
     private $telemetryClient;
     private $diagnosticInfo = "";
-    /**
-     * @var TelemetryClientConfiguration
-     */
-    private TelemetryClientConfiguration $configField;
-
-    /**
-     * @return TelemetryClientConfiguration
-     */
-    public function getConfigField(): TelemetryClientConfiguration
-    {
-        return $this->configField;
-    }
     public function __construct(TelemetryClient $telemetryClient)
     {
         $this->telemetryClient = $telemetryClient;
@@ -56,17 +44,21 @@ class TelemetryDiagnosticControls
             throw new \Exception("Unable to connect."); // THIS
         }
 
-        $config = new TelemetryClientConfiguration();
-        $config->setSessionId(uniqid());
-        $config->setSessionStart(time());
-        $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL); //this?!
+        $config = $this->createConfig($currentRetry);
         $this->telemetryClient->configure($config); // OK
-        $this->configField = $config;
 
         $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
         $this->diagnosticInfo = $this->telemetryClient->receive();
     }
 
+    public function createConfig(int $currentRetry): TelemetryClientConfiguration
+    {
+        $config = new TelemetryClientConfiguration();
+        $config->setSessionId(uniqid() . "_$currentRetry");
+        $config->setSessionStart(time());
+        $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL);
+        return $config; //this?!
+    }
 
 
 }
