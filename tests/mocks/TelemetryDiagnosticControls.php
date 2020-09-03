@@ -13,11 +13,13 @@ class TelemetryDiagnosticControls
 {
     public const DIAGNOSTIC_CHANNEL_CONNECTION_STRING = '*111#';
 
-    private $telemetryClient;
+    private TelemetryClient $telemetryClient;
+    private TelemetryClientConfigFactory $configFactory;
     private $diagnosticInfo = "";
-    public function __construct(TelemetryClient $telemetryClient)
+    public function __construct(TelemetryClient $telemetryClient, TelemetryClientConfigFactory $configFactory)
     {
         $this->telemetryClient = $telemetryClient;
+        $this->configFactory = $configFactory;
     }
 
     public function getDiagnosticInfo(): String
@@ -44,24 +46,21 @@ class TelemetryDiagnosticControls
             throw new \Exception("Unable to connect."); // THIS
         }
 
-        $config = $this->createConfig($currentRetry);
+        $config = $this->configFactory->createConfig($currentRetry);
         $this->telemetryClient->configure($config); // OK
 
         $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
         $this->diagnosticInfo = $this->telemetryClient->receive();
     }
 
-    public function createConfig(int $currentRetry): TelemetryClientConfiguration
-    {
-        $config = new TelemetryClientConfiguration();
-        $config->setSessionId(uniqid() . "_$currentRetry");
-        $config->setSessionStart(time());
-        $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL);
-        return $config; //this?!
-    }
+
 
 
 }
+
+
+
+
 class User {
     private $active = false;
 

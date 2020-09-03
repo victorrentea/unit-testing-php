@@ -22,6 +22,10 @@ class TelemetryDiagnosticControlsTest extends MyTestCaseHelper
      * @var TelemetryDiagnosticControls
      */
     private TelemetryDiagnosticControls $controls;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|TelemetryClientConfigFactory
+     */
+    private $configFactory;
 
     protected function setUp()
     {
@@ -29,7 +33,8 @@ class TelemetryDiagnosticControlsTest extends MyTestCaseHelper
 
 //        $this->client = $this->createMock("PhpUnitWorkshopTest\mocks\TelemetryClient");
         $this->client = $this->createMock(TelemetryClient::class);
-        $this->controls = new TelemetryDiagnosticControls($this->client);
+        $this->configFactory = $this->createMock(TelemetryClientConfigFactory::class);
+        $this->controls = new TelemetryDiagnosticControls($this->client, $this->configFactory);
     }
 
     /** @test */
@@ -48,19 +53,28 @@ class TelemetryDiagnosticControlsTest extends MyTestCaseHelper
     public function configuresClient()
     {
         $this->client->method("getOnlineStatus")->willReturn(true);
+        $config = new TelemetryClientConfiguration();
+
+        $this->configFactory->method("createConfig")->willReturn($config);
+
         $this->client->expects($this->once())
             ->method("configure")
+            ->with($config)
+
         ; // external protocol/format
 
         $this->controls->checkTransmission();
 
     }
 
+
+    /
+
     /** @test */
-    public function createsCorrectConfig() {
-        $config = $this->controls->createConfig(7);
-        self::assertEquals(TelemetryClientConfiguration::ACK_NORMAL, $config);
-    }
+//    public function createsCorrectConfig() {
+//        $config = $this->controls->createConfig(7);
+//        self::assertEquals(TelemetryClientConfiguration::ACK_NORMAL, $config);
+//    }
 
 
     /** @test
