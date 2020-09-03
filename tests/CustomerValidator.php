@@ -6,10 +6,6 @@ namespace PhpUnitWorkshopTest;
 
 class CustomerValidator
 {
-    public function __construct(stuff)
-    {
-    }
-
     /** @throws \Exception */
     public function validate(Customer $customer)
     {

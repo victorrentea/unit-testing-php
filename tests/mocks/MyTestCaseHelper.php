@@ -4,7 +4,8 @@
 namespace PhpUnitWorkshopTest\mocks;
 
 
-use Emag\Core\JiraApiBundle\Tests\Unit\TestCase;
+
+use PHPUnit\Framework\TestCase;
 
 abstract class MyTestCaseHelper extends TestCase
 {

@@ -13,7 +13,7 @@ class CustomerValidatorTest extends TestCase
 
     protected function setUp()
     {
-        $this->validator = new CustomerValidator(mockDep);
+        $this->validator = new CustomerValidator();
     }
 
     private function aValidCustomer(): Customer
@@ -63,6 +63,10 @@ class CustomerValidatorTest extends TestCase
         $customer = $this->aValidCustomer()->setAddress($this->aValidAddress()->setStreetAddress(""));
         $this->validator->validate($customer);
     }
+
+
+
+
 
 
 
