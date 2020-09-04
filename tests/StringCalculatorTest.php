@@ -72,6 +72,16 @@ class StringCalculatorTest extends TestCase
         self::assertEquals(3, $this->stringCalculator->Add("//*\n\n1*\n2"));
     }
 
+    /**
+     * @test
+     * @expectedException \Exception
+     * @expectedExceptionMessage -1,-2
+     */
+    public function testThrowsForNegatives()
+    {
+        $this->stringCalculator->Add("0,-1,3,-2");
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
