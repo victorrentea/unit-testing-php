@@ -11,7 +11,7 @@ class CustomerValidatorTest extends TestCase
 
     private CustomerValidator $validator;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->validator = new CustomerValidator();
     }
