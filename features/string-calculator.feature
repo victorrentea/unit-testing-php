@@ -14,6 +14,6 @@ Feature: Add
     Examples:
     | input | expected|
     |1,2,7  |10       |
-    |1,2\\n8  |11       |
+    |1,2,8  |11       |
 
 
