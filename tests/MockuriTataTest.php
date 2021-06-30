@@ -30,8 +30,15 @@ class Dep {
         return "not to be";
     }
 }
+class SomeClass {
+    public function doSomething(): string
+    {
+        return "fxx";
+    }
+}
 class BowlingScoreShould extends TestCase
 {
+
 
     /** @test */
     public function returnTOBEWhenDepSaysToBe()
