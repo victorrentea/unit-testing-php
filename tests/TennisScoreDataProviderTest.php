@@ -14,6 +14,7 @@ class TennisScoreDataProviderTest extends TestCase
 
     public function data(): array
     {
+
         return [
             "one" => [0, 0, "Love - Love"],
             "two" => [0, 1, "Love - Fifteen"],

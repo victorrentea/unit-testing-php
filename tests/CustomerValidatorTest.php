@@ -29,6 +29,7 @@ class CustomerValidatorTest extends BaseTest
     public function noExceptions_validCustomer() {
         // $this->init1();
         $this->validator->validate($this->customer);
+        self::assertTrue(true);
     }
 
     /** @test */
@@ -57,6 +58,7 @@ class CustomerValidatorTest extends BaseTest
             ->setName("Jiji")
             ->setEmail("a@b.com")
             ->setPhone("8989989");
+        self::assertTrue(true);
     }
 
 }

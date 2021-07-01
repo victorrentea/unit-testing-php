@@ -3,7 +3,6 @@
 
 namespace PhpUnitWorkshopTest;
 
-
 class StringCalculator
 {
     static function add(string $text): int
@@ -12,12 +11,12 @@ class StringCalculator
             return 0;
         } else {
             $delimiter = ",";
-            if (substr($text,0, 2) == '//') {
+            if (substr($text, 0, 2) == '//') {
                 $delimiter = $text[2];
                 $text = substr($text, 4);
             }
-
-            $numList = preg_split('/\n|' . $delimiter . '/', $text);
+            $pregString = '/\n|\\' . $delimiter . '/';
+            $numList = preg_split($pregString, $text);
             return self::sum($numList);
         }
     }
@@ -28,13 +27,15 @@ class StringCalculator
         $negString = "";
         foreach ($numbers as $number) {
             if (self::toInt($number) < 0) {
-                if ($negString == "")
+                if ($negString == "") {
                     $negString = $number;
-                else
+                } else {
                     $negString .= "," . $number;
+                }
             }
-            if (self::toInt($number) < 1000)
+            if (self::toInt($number) < 1000) {
                 $total += self::toInt($number);
+            }
         }
 
         if ($negString != "") {
@@ -46,13 +47,6 @@ class StringCalculator
 
     private static function toInt(string $number): int
     {
-        return (int) $number;
+        return (int)$number;
     }
 }
-
-var_dump(StringCalculator::add("1,2"));
-var_dump(StringCalculator::add("1,1000"));
-var_dump(StringCalculator::add(""));
-var_dump(StringCalculator::add("1"));
-var_dump(StringCalculator::add("//;\n1;2"));
-var_dump(StringCalculator::add("1,-2,-5"));

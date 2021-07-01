@@ -21,6 +21,7 @@ class TelemetryDiagnosticControls
         $this->telemetryClient = $telemetryClient;
     }
 
+
     public function getDiagnosticInfo(): String
     {
         return $this->diagnosticInfo;
@@ -31,10 +32,12 @@ class TelemetryDiagnosticControls
         $this->diagnosticInfo = $diagnosticInfo;
     }
 
-    public function checkTransmission()
+    public function checkTransmission(): void
     {
+        // ceva critic de testat
         $this->telemetryClient->disconnect();
 
+        // TODO testati si forul
         $currentRetry = 1;
         while (!$this->telemetryClient->getOnlineStatus() && $currentRetry <= 3) {
             $this->telemetryClient->connect(self::DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
@@ -46,19 +49,22 @@ class TelemetryDiagnosticControls
             throw new \Exception("Unable to connect.");
         }
 
-        $this->telemetryClient->configure($this->createConfiguration());
+        $config = $this->createConfig();
+        $this->telemetryClient->configure($config);
 
         $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
         $this->diagnosticInfo = $this->telemetryClient->receive() ;
     }
 
-    public function createConfiguration(): TelemetryClientConfiguration
+    public function createConfig(): TelemetryClientConfiguration
     {
         $config = new TelemetryClientConfiguration();
         $config->setSessionId(uniqid());
         $config->setSessionStart(time());
         $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL);
-        return $config;
+        // query aici
+        // sleep(1);
+        return $config; // asta
     }
 
 

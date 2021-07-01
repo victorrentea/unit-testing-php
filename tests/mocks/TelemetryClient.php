@@ -9,7 +9,9 @@
 namespace PhpUnitWorkshopTest\mocks;
 
 
-class TelemetryClient
+class TelemetryClient // client de serviciu web al Nemo express --> apel extern de retea API call
+    // productDbm care pentru a insera un Produs trebuie sa slabesti 1 kg (15 inserturi)
+    // sau poate pur si simplu Innoship Service (atat de horror ca nu dormi noaptea urmatoare daca intri in el)
 {
     const DIAGNOSTIC_MESSAGE = "AT#UD";
 
