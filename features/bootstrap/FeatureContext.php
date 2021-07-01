@@ -4,6 +4,7 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use PhpUnitWorkshopTest\TennisScore;
 
 /**
  * Defines application features from the specific context.
@@ -31,7 +32,7 @@ class FeatureContext extends \PHPUnit\Framework\TestCase implements Context
     /** @When /^Player(\d) scores a point$/ */
     public function playerscoresAPoint(int $playerNo)
     {
-        $this->tennisScore->addPoint($playerNo);
+        $this->tennisScore->winPoint($playerNo);
     }
 
     /**
@@ -40,7 +41,7 @@ class FeatureContext extends \PHPUnit\Framework\TestCase implements Context
     public function playerscoresPoints(int $player, int $points)
     {
         for ($i = 0; $i < $points; $i++) {
-            $this->tennisScore->addPoint($player);
+            $this->tennisScore->winPoint($player);
         }
     }
 }

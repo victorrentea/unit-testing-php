@@ -6,7 +6,7 @@
  * Time: 12:58 PM
  */
 
-namespace PhpUnitWorkshop\mocks;
+namespace PhpUnitWorkshopTest\mocks;
 
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -19,7 +19,7 @@ class TelemetryDiagnosticControlsTest extends TestCase
     /** @var TelemetryDiagnosticControls */
     private $subject;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->telemetryClient = $this->createMock(
             TelemetryClient::class

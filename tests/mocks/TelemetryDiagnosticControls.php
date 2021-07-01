@@ -6,7 +6,7 @@
  * Time: 12:38 PM
  */
 
-namespace PhpUnitWorkshop\mocks;
+namespace PhpUnitWorkshopTest\mocks;
 
 
 class TelemetryDiagnosticControls
@@ -49,7 +49,7 @@ class TelemetryDiagnosticControls
         $this->telemetryClient->configure($this->createConfiguration());
 
         $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
-        $this->diagnosticInfo = $this->telemetryClient->receive();
+        $this->diagnosticInfo = $this->telemetryClient->receive() ;
     }
 
     public function createConfiguration(): TelemetryClientConfiguration

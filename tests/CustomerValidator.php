@@ -7,35 +7,46 @@ namespace PhpUnitWorkshopTest;
 class CustomerValidator
 {
 
-    public function validate(Customer $customer)
+    public function validate($customer)
     {
         if ($customer->getName() == '') {
-            throw new \Exception("Missing customer name");
+            throw new UserVisibleException("Missing customer name");
         }
         $this->validateAddress($customer->getAddress());
-//etc
     }
 
     private function validateAddress(Address $address)
     {
-        if ($address->getCity()) {
-            throw new \Exception("Missing address xcity");
+        if (!$address->getCity()) {
+            throw new UserVisibleException("Missing address city");
         }
     }
 }
+
+
+
 
 class Address
 {
     private $city;
     private $streetAddress;
 
-    public function __construct(string $city, string $streetAddress)
+    /**
+     * @param mixed $city
+     */
+    public function setCity(?string $city): void
     {
         $this->city = $city;
-        $this->streetAddress = $streetAddress;
     }
 
-    public function getCity(): string
+    /**
+     * @param mixed $streetAddress
+     */
+    public function setStreetAddress(string $streetAddress): void
+    {
+        $this->streetAddress = $streetAddress;
+    }
+    public function getCity(): ?string
     {
         return $this->city;
     }
@@ -49,20 +60,59 @@ class Address
 class Customer
 {
     private $name;
+    private $phone;
+    private $email;
     private $address;
 
-    public function __construct(string $name, Address $address)
+    /**
+     * @return mixed
+     */
+    public function getPhone()
     {
-        $this->name = $name;
-        $this->address = $address;
+        return $this->phone;
     }
 
-    public function getAddress(): Address
+    /**
+     * @param mixed $phone
+     * @return Customer
+     */
+    public function setPhone($phone):Customer
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): Customer
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+
+    public function setName(?string $name): Customer
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function setAddress(Address $address): void
+    {
+        $this->address = $address;
+    }
+    public function getAddress(): ?Address
     {
         return $this->address;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
