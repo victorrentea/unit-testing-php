@@ -41,7 +41,6 @@ class TelemetryDiagnosticControls
             $currentRetry++;
         }
 
-
         if (!$this->telemetryClient->getOnlineStatus()) {
             throw new \Exception("Unable to connect.");
         }
