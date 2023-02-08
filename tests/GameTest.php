@@ -77,8 +77,44 @@ class GameTest extends TestCase
         $game->roll(1);
         assertEquals(12 + 2 , $game->score());
     }
-    // 1 =>  0
-    // 10 1 =>  0
-    // 0 10 1 =>  11+ 1 = 12
-    // 0 10 1 1 =>11(spare)+2
+//    function testStrikeZero(): void
+//    {
+//        $game = new Game();
+//        $game->roll(10);
+//        $game->roll(1);
+//        assertEquals(0 , $game->score());
+//    }
+
+    function testStrikeIncomplet(): void
+    {
+        $game = new Game();
+        $game->roll(10);
+        $game->roll(1);
+        assertEquals(0 , $game->score());
+    }
+    function spareCu10(): void
+    {
+        $game = new Game();
+        $game->roll(0);
+        $game->roll(10);
+        $game->roll(1);
+        assertEquals(11 , $game->score());
+    }
+    function spareNUmaistiucumsatechem_vatrebunDataProvider(): void
+    {
+        $game = new Game();
+        $game->roll(0);
+        $game->roll(10);
+        $game->roll(1);
+        $game->roll(1);
+        assertEquals(13 , $game->score());
+    }
+
+//    function testBlanaTODO(): void
+//    {
+//        $game = new Game();
+//        for ($i = 0;$i<12;$i++)
+//            $game->roll(10);
+//        assertEquals(300 , $game->score());
+//    }
 }
