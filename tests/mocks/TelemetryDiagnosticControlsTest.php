@@ -92,11 +92,13 @@ class TelemetryDiagnosticControlsTest extends TestCase
     function testConfiguresClient()
     {
         $this->clientMock->method('getOnlineStatus')->willReturn(true);
-        $this->clientMock->expects(self::once())->method('configure');
-
-        $config = new TelemetryClientConfiguration();
+        $this->clientMock->expects(self::once())->method('configure')
+            ->will(self::returnCallback(function (TelemetryClientConfiguration $config) {
+                self::assertEquals(TelemetryClientConfiguration::ACK_NORMAL, $config->getAckMode()); // ruleaza la linia 100
+            }));
 
         $this->target->checkTransmission();
+
         self::assertTrue(true);
     }
 

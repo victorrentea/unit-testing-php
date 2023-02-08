@@ -15,12 +15,7 @@ class TelemetryDiagnosticControls
 
     private $telemetryClient;
     private $diagnosticInfo = "";
-    private $configuration;
 
-    public function getConfiguration()
-    {
-        return $this->configuration;
-    }
     public function __construct(TelemetryClient $telemetryClient)
     {
         $this->telemetryClient = $telemetryClient;
@@ -53,14 +48,13 @@ class TelemetryDiagnosticControls
             throw new \Exception("[SCAN_TOKEN_2RAISE_ALERT]Cannot connect despite my attempt");
         }
 
-        $this->configuration = $this->createConfiguration();
-        $this->telemetryClient->configure($this->configuration);
+        $this->telemetryClient->configure($this->createConfiguration());
 
         $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
         $this->diagnosticInfo = $this->telemetryClient->receive();
     }
 
-    private function createConfiguration(): TelemetryClientConfiguration
+    protected function createConfiguration(): TelemetryClientConfiguration
     {
         $config = new TelemetryClientConfiguration();
         $config->setSessionId(uniqid());
