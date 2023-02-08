@@ -57,6 +57,8 @@ class TelemetryDiagnosticControls
     protected function createConfiguration(): TelemetryClientConfiguration
     {
         $config = new TelemetryClientConfiguration();
+        $config->setSessionId(uniqid());
+        $config->setSessionStart(time());
         $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL);
         return $config;
     }
