@@ -15,25 +15,31 @@ use PHPUnit\Framework\TestCase;
 
 class TelemetryDiagnosticControlsTest extends TestCase
 {
+    private MockObject|TelemetryClient $clientMock;
+    private TelemetryDiagnosticControls $target;
+
+    protected function setUp(): void
+    {
+        parent::setUp(); // good habit pt cazuri cand exinzi din CustomTestCase
+        $this->clientMock = $this->createMock(TelemetryClient::class);
+        $this->target = new TelemetryDiagnosticControls($this->clientMock);
+    }
+
     function testOk()
     {
-        $clientMock = $this->createMock(TelemetryClient::class);
-        $target = new TelemetryDiagnosticControls($clientMock);
-        $clientMock->method('getOnlineStatus')->willReturn(true);
+        $this->clientMock->method('getOnlineStatus')->willReturn(true);
 
-        $target->checkTransmission();
+        $this->target->checkTransmission();
 
         self::assertTrue(true);
     }
 
     function testDisconnectsClient()
     {
-        $clientMock = $this->createMock(TelemetryClient::class);
-        $target = new TelemetryDiagnosticControls($clientMock);
-        $clientMock->method('getOnlineStatus')->willReturn(true);
-        $clientMock->expects(self::once())->method('disconnect');
+        $this->clientMock->method('getOnlineStatus')->willReturn(true);
+        $this->clientMock->expects(self::once())->method('disconnect');
 
-        $target->checkTransmission();
+        $this->target->checkTransmission();
 
         self::assertTrue(true);
     }
@@ -41,12 +47,10 @@ class TelemetryDiagnosticControlsTest extends TestCase
 
     function testThrowsWhenNotOnline()
     {
-        $clientMock = $this->createMock(TelemetryClient::class);
-        $target = new TelemetryDiagnosticControls($clientMock);
-        $clientMock->method('getOnlineStatus')->willReturn(false);
+        $this->clientMock->method('getOnlineStatus')->willReturn(false);
         $this->expectExceptionMessage("SCAN_TOKEN_2RAISE_ALERT"); // mai precis
 
-        $target->checkTransmission();
+        $this->target->checkTransmission();
 
         self::assertTrue(true);
     }
