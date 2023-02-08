@@ -38,26 +38,23 @@ class TelemetryDiagnosticControls
     {
         $this->telemetryClient->disconnect();
 
-        $currentRetry = 1;
-//        while (!$this->telemetryClient->getOnlineStatus() && $currentRetry <= 3) {
-//            $this->telemetryClient->connect(self::DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
-//            $currentRetry++;
-//        }
-
         if (!$this->telemetryClient->getOnlineStatus()) {
             throw new \Exception("[SCAN_TOKEN_2RAISE_ALERT]Cannot connect despite my attempt");
         }
 
-        $this->telemetryClient->configure($this->createConfiguration());
+        $version = $this->telemetryClient->getVersion();
+        $this->telemetryClient->configure($this->createConfiguration($version));
 
         $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
         $this->diagnosticInfo = $this->telemetryClient->receive();
     }
 
-    protected function createConfiguration(): TelemetryClientConfiguration
+    public function createConfiguration($version): TelemetryClientConfiguration
     {
         $config = new TelemetryClientConfiguration();
-        $config->setSessionId(uniqid());
+        $config->setSessionId($version/*->major*/ . '-' . uniqid());
+        // Imagine :adaug complexitate ciclomatica enorma (7) aici ~= nr de execution path pe care o poate lua codul
+        // 7 ifuri => 7 teste
         $config->setSessionStart(time());
         $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL);
         return $config;
