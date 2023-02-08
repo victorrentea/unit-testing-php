@@ -52,7 +52,7 @@ class TelemetryDiagnosticControls
     public function createConfiguration(?ClientVersion $version): TelemetryClientConfiguration
     {
         $config = new TelemetryClientConfiguration();
-        $config->setSessionId($version . '-' . uniqid());
+        $config->setSessionId($version->major . '-' . uniqid());
         $config->setSessionStart(time());
         $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL);
         // Imagine :adaug complexitate ciclomatica enorma (7) aici ~= nr de execution path pe care o poate lua codul
