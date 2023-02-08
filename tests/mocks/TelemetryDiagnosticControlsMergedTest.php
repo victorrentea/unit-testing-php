@@ -34,6 +34,7 @@ class TelemetryDiagnosticControlsMergedTest extends TestCase
         $this->target->checkTransmission();
     }
 
+    // TRADARE!
     function testOk()
     {
         $this->clientMock->method('getOnlineStatus')->willReturn(true);
