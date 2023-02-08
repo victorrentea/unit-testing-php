@@ -60,26 +60,4 @@ class TelemetryDiagnosticControls
         $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL);
         return $config;
     }
-
-
-}
-class User {
-    private $active = false;
-
-    /**
-     * @return bool
-     */
-    public function isActive(): bool
-    {
-        return $this->active;
-    }
-
-    /**
-     * @param bool $active
-     */
-    public function setActive(bool $active): void
-    {
-        $this->active = $active;
-    }
-
 }

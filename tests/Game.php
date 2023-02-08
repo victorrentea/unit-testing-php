@@ -14,7 +14,7 @@ class Game
         for ($i = 0; $i < count($this->pins) - 1; $i += 2) {
             $framePins = $this->pins[$i] + $this->pins[$i + 1];
 
-            if ($framePins != 10) { // spare sau strike dar nu s-a terminat
+            if ($framePins != 10) { // regular
                 $score += $framePins;
             }
             if ($this->isSpare($framePins, $i) && isset($this->pins[$i + 2])) // spare
