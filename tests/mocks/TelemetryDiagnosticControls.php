@@ -21,6 +21,11 @@ class TelemetryDiagnosticControls
         $this->telemetryClient = $telemetryClient;
     }
 
+    public function setTelemetryClient(TelemetryClient $telemetryClient): void
+    {
+        $this->telemetryClient = $telemetryClient;
+    }
+
 //    function sendDiagnostic() {
 //        send($this->diagnosticInfo);
 //    }
@@ -44,10 +49,12 @@ class TelemetryDiagnosticControls
 
         $version = $this->telemetryClient->getVersion();
         $this->telemetryClient->configure($this->createConfiguration($version));
+        // vreau ca aici de fapt sa NU se invoce metoda "configure" reala.
 
         $this->telemetryClient->send(TelemetryClient::DIAGNOSTIC_MESSAGE);
         $this->diagnosticInfo = $this->telemetryClient->receive();
     }
+
 
     public function createConfiguration(?ClientVersion $version): TelemetryClientConfiguration
     {
