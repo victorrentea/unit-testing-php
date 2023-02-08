@@ -24,6 +24,9 @@ class TelemetryDiagnosticControlsMergedTest extends TestCase
         parent::setUp(); // good habit pt cazuri cand exinzi din CustomTestCase
         $this->clientMock = $this->createMock(TelemetryClient::class);
         $this->target = new TelemetryDiagnosticControls($this->clientMock);
+
+        // Iarta-ma! mama masii ca n-am nevoie de asta; cum o se uite la asta cine mentine testul?
+        $this->clientMock->method('getVersion')->willReturn(new ClientVersion(9,9));
     }
 
     function testThrowsWhenNotOnline_OAIA_NEAGRA()

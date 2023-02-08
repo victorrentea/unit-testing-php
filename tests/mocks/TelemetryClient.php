@@ -90,12 +90,7 @@ public function connect(String $telemetryServerConnectionString):void {
         //TODO Configure the client
     }
 
-    public function f(): array
-    {
-
-    }
-
-    public function getVersion() : ?string
+    public function getVersion() : ?ClientVersion
     {
         return "1.2";
     }
