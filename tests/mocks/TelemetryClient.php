@@ -6,8 +6,10 @@
  * Time: 12:39 PM
  */
 
-namespace PhpUnitWorkshop\mocks;
+namespace PhpUnitWorkshopTest\mocks;
 
+
+use PhpUnitWorkshopTest\mocks\Random;
 
 class TelemetryClient
 {

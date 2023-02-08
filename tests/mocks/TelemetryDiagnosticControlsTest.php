@@ -6,7 +6,7 @@
  * Time: 12:58 PM
  */
 
-namespace PhpUnitWorkshop\mocks;
+namespace PhpUnitWorkshopTest\mocks;
 
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -14,5 +14,10 @@ use PHPUnit\Framework\TestCase;
 
 class TelemetryDiagnosticControlsTest extends TestCase
 {
-
+    function testCovrigi()
+    {
+        $sut = new TelemetryDiagnosticControls(new TelemetryClient());
+        $sut->checkTransmission();
+        self::assertTrue(true);
+    }
 }

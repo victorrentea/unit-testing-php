@@ -5,8 +5,8 @@ namespace PhpUnitWorkshopTest\design\cqs;
 use Distill\Format\Simple\Tar;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PhpUnitWorkshop\mocks\TelemetryClient;
-use PhpUnitWorkshop\mocks\TelemetryDiagnosticControls;
+use PhpUnitWorkshopTest\mocks\TelemetryClient;
+use PhpUnitWorkshopTest\mocks\TelemetryDiagnosticControls;
 
 class TargetTest extends TestCase
 {
