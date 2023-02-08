@@ -51,7 +51,7 @@ class TelemetryDiagnosticControls
         $this->diagnosticInfo = $this->telemetryClient->receive();
     }
 
-    public function createConfiguration(): TelemetryClientConfiguration
+    private function createConfiguration(): TelemetryClientConfiguration
     {
         $config = new TelemetryClientConfiguration();
         $config->setSessionId(uniqid());
