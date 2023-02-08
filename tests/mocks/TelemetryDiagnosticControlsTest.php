@@ -98,6 +98,7 @@ class TelemetryDiagnosticControlsTest extends TestCase
                 echo $config->getSessionId();
                 TestUtils::assertJustNow($config->getSessionStart());
                 self::assertEquals(TelemetryClientConfiguration::ACK_NORMAL, $config->getAckMode()); // ruleaza la linia 100
+                self::assertNotNull($config->getSessionId());
             }))
         ;
 
