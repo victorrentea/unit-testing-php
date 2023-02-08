@@ -9,15 +9,48 @@
 namespace PhpUnitWorkshopTest\mocks;
 
 
+use http\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class TelemetryDiagnosticControlsTest extends TestCase
 {
-    function testCovrigi()
+    function testOk()
     {
-        $sut = new TelemetryDiagnosticControls(new TelemetryClient());
-        $sut->checkTransmission();
+        $clientMock = $this->createMock(TelemetryClient::class);
+        $target = new TelemetryDiagnosticControls($clientMock);
+        $clientMock->method('getOnlineStatus')->willReturn(true);
+
+        $target->checkTransmission();
+
         self::assertTrue(true);
     }
+
+    function testDisconnectsClient()
+    {
+        $clientMock = $this->createMock(TelemetryClient::class);
+        $target = new TelemetryDiagnosticControls($clientMock);
+        $clientMock->method('getOnlineStatus')->willReturn(true);
+        $clientMock->expects(self::once())->method('disconnect');
+
+        $target->checkTransmission();
+
+        self::assertTrue(true);
+    }
+
+
+    function testThrowsWhenNotOnline()
+    {
+        $clientMock = $this->createMock(TelemetryClient::class);
+        $target = new TelemetryDiagnosticControls($clientMock);
+        $clientMock->method('getOnlineStatus')->willReturn(false);
+        $this->expectExceptionMessage("SCAN_TOKEN_2RAISE_ALERT"); // mai precis
+
+        $target->checkTransmission();
+
+        self::assertTrue(true);
+    }
+
+
+
 }

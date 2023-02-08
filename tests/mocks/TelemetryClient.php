@@ -89,4 +89,9 @@ public function connect(String $telemetryServerConnectionString):void {
         //TODO Configure the client
     }
 
+    public function f(): array
+    {
+
+    }
+
 }

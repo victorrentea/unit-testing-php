@@ -36,13 +36,13 @@ class TelemetryDiagnosticControls
         $this->telemetryClient->disconnect();
 
         $currentRetry = 1;
-        while (!$this->telemetryClient->getOnlineStatus() && $currentRetry <= 3) {
-            $this->telemetryClient->connect(self::DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
-            $currentRetry++;
-        }
+//        while (!$this->telemetryClient->getOnlineStatus() && $currentRetry <= 3) {
+//            $this->telemetryClient->connect(self::DIAGNOSTIC_CHANNEL_CONNECTION_STRING);
+//            $currentRetry++;
+//        }
 
         if (!$this->telemetryClient->getOnlineStatus()) {
-            throw new \Exception("Unable to connect.");
+            throw new \Exception("[SCAN_TOKEN_2RAISE_ALERT]Cannot connect despite my attempt");
         }
 
         $this->telemetryClient->configure($this->createConfiguration());
