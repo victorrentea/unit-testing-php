@@ -49,7 +49,7 @@ class TelemetryDiagnosticControls
         $this->diagnosticInfo = $this->telemetryClient->receive();
     }
 
-    public function createConfiguration(ClientVersion $version): TelemetryClientConfiguration
+    public function createConfiguration(?ClientVersion $version): TelemetryClientConfiguration
     {
         $config = new TelemetryClientConfiguration();
         $config->setSessionId($version . '-' . uniqid());
