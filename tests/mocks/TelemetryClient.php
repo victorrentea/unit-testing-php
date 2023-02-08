@@ -66,7 +66,8 @@ public function connect(String $telemetryServerConnectionString):void {
     // here should go the real Send operation (not needed for this exercise)
 }
 
-	public function receive() {
+	public function receive(): string
+    {
         $message = "";
 
 		if ($this->diagnosticMessageResult == null || "" == $this->diagnosticMessageResult) {
@@ -74,7 +75,7 @@ public function connect(String $telemetryServerConnectionString):void {
             $message = "";
             $messageLength = $this->connectionEventsSimulator->nextInt(50) + 60;
 			for ($i = $messageLength; $i >= 0; --$i) {
-                $message += $this->connectionEventsSimulator->nextInt(40) + 86;
+                $message .= $this->connectionEventsSimulator->nextInt(40) + 86;
 			}
 
 		} else {

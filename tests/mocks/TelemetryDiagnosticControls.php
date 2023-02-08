@@ -21,7 +21,10 @@ class TelemetryDiagnosticControls
         $this->telemetryClient = $telemetryClient;
     }
 
-    public function getDiagnosticInfo(): String
+//    function sendDiagnostic() {
+//        send($this->diagnosticInfo);
+//    }
+    public function getDiagnosticInfo(): string
     {
         return $this->diagnosticInfo;
     }

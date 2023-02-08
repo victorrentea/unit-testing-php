@@ -15,10 +15,11 @@ use PHPUnit\Framework\TestCase;
 
 class TelemetryDiagnosticControlsTest extends TestCase
 {
+    const DIAGNOSTIC = "##diagnostic##";
     private MockObject|TelemetryClient $clientMock;
     private TelemetryDiagnosticControls $target;
 
-    protected function setUp(): void
+    protected function setUp(): void // runs before each test
     {
         parent::setUp(); // good habit pt cazuri cand exinzi din CustomTestCase
         $this->clientMock = $this->createMock(TelemetryClient::class);
@@ -28,7 +29,6 @@ class TelemetryDiagnosticControlsTest extends TestCase
     function testOk()
     {
         $this->clientMock->method('getOnlineStatus')->willReturn(true);
-
         $this->target->checkTransmission();
 
         self::assertTrue(true);
@@ -55,6 +55,38 @@ class TelemetryDiagnosticControlsTest extends TestCase
         self::assertTrue(true);
     }
 
+
+    function testSendsDiagnosticMessage()
+    {
+        $this->clientMock->method('getOnlineStatus')->willReturn(true);
+        $this->clientMock->expects(self::once())
+            ->method('send')
+            ->with(TelemetryClient::DIAGNOSTIC_MESSAGE)
+//            ->with("AT#UD")// doar cand CHIAR vrei sa-ti pice testu daca produ da altceva
+        ;
+        $this->target->checkTransmission();
+
+        self::assertTrue(true);
+    }
+
+    function testReceivesDiagnosticInfo()
+    {
+        $this->clientMock->method('getOnlineStatus')->willReturn(true);
+        $this->clientMock
+//            ->expects(self::once())
+                // are sens daca :
+                    // 1) apelul poate sa intoarca altceva la al doilea apel (eg : SELECT COUNT(T) FROM ORDERS)
+                    // 2) apelul modifica chestii (i++ undeva)
+                    // 3) apelul dureaza timp/$ ( ca sa nu repeti apelul): eg api call
+            ->method('receive')
+            ->willReturn(self::DIAGNOSTIC);
+
+        // daca functia e PURE FUNCTION, nu ar trebui sa-i faci expects();
+
+        $this->target->checkTransmission();
+
+        self::assertEquals(self::DIAGNOSTIC, $this->target->getDiagnosticInfo());
+    }
 
 
 }
