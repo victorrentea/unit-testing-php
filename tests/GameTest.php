@@ -19,8 +19,14 @@ class GameTest extends TestCase
     {
         $game = new Game();
         $game->roll(1);
-        assertEquals(1 , $game->score());
+        assertEquals(0 , $game->score());
     }
+//    function testOneZero(): void
+//    {
+//        $game = new Game();
+//        $game->roll(1);
+//        assertEquals(1 , $game->score());
+//    }
     function testOneOne(): void
     {
         $game = new Game();
@@ -36,6 +42,7 @@ class GameTest extends TestCase
         $game->roll(7);
         $game->roll(3);
         $game->roll(2);
+        $game->roll(0);
 
         assertEquals(12 + 2 , $game->score());
     }
@@ -48,6 +55,7 @@ class GameTest extends TestCase
         $game->roll(7);
         $game->roll(3);
         $game->roll(3);
+        $game->roll(0);
 
         assertEquals(5 + 10 + 3 + 3 , $game->score());
     }
@@ -61,5 +69,16 @@ class GameTest extends TestCase
 
         assertEquals(5 , $game->score());
     }
-    // 0 7 3 4 => 14
+    function testStrike(): void
+    {
+        $game = new Game();
+        $game->roll(10);
+        $game->roll(1);
+        $game->roll(1);
+        assertEquals(12 + 2 , $game->score());
+    }
+    // 1 =>  0
+    // 10 1 =>  0
+    // 0 10 1 =>  11+ 1 = 12
+    // 0 10 1 1 =>11(spare)+2
 }
