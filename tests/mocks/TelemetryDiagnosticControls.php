@@ -60,3 +60,5 @@ class TelemetryDiagnosticControls
         return $config;
     }
 }
+
+// pazea ca bine bizu cu changeu: vrem doar major versiso in sessionId
