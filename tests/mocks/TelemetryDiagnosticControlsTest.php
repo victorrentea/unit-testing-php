@@ -50,9 +50,9 @@ class TelemetryDiagnosticControlsTest extends TestCase
         $this->telemetryClient->method('getOnlineStatus')
             ->willReturn(true); // stabuiesc metoda
         // STUB: o invat sa zica "To be or not to be".
-        $this->telemetryClient->expects($this->exactly(1))
-            ->method('send')
-            ->with(TelemetryClient::DIAGNOSTIC_MESSAGE)
+            $this->telemetryClient->expects($this->exactly(1))
+                ->method('send')
+                ->with(TelemetryClient::DIAGNOSTIC_MESSAGE)
         ;
         // MOCK: verific ca o metoda este invocata in cele ce urmeaza in acest test.
 
