@@ -49,14 +49,14 @@ class TelemetryDiagnosticControls
         $this->diagnosticInfo = $this->telemetryClient->receive();
     }
 
-    public function createConfiguration($version): TelemetryClientConfiguration
+    public function createConfiguration(ClientVersion $version): TelemetryClientConfiguration
     {
         $config = new TelemetryClientConfiguration();
-        $config->setSessionId($version/*->major*/ . '-' . uniqid());
-        // Imagine :adaug complexitate ciclomatica enorma (7) aici ~= nr de execution path pe care o poate lua codul
-        // 7 ifuri => 7 teste
+        $config->setSessionId($version . '-' . uniqid());
         $config->setSessionStart(time());
         $config->setAckMode(TelemetryClientConfiguration::ACK_NORMAL);
+        // Imagine :adaug complexitate ciclomatica enorma (7) aici ~= nr de execution path pe care o poate lua codul
+        // 7 ifuri => 7 teste
         return $config;
     }
 }
