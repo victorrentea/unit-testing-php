@@ -15,18 +15,23 @@ class FastFoodTest extends TestCase
     {
         $this->dependency = $this->createMock(Dependency::class);
         $this->fastFood = new FastFood($this->dependency);
+        $this->dependency->method('isOnionAllowed')->willReturn(true);
+        $this->dependency->method('isCucumberAllowed')->willReturn(true);
     }
+
 
     function testShawarma(): void
     {
         $shawarma = $this->fastFood->makeShawarma();
         assertEquals("Yummy Shawarma", $shawarma);
+        // + 7 teste !!!!!
     }
 
     function testTzatziki(): void
     {
         $tzatziki = $this->fastFood->makeTzatziki();
         assertEquals("Cold Tzatziki", $tzatziki);
+        // + 7 teste
     }
 
 }
