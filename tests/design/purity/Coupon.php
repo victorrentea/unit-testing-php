@@ -2,6 +2,8 @@
 
 namespace PhpUnitWorkshopTest\design\purity;
 
+use JetBrains\PhpStorm\Pure;
+
 class Coupon
 {
     public function __construct(
@@ -13,6 +15,7 @@ class Coupon
     {
     }
 
+    #[Pure]
     public function isApplicableFor(Product $product):bool
     {
         return $product->category == $this->category;

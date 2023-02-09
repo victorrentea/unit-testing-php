@@ -26,6 +26,8 @@ class PriceServiceTest extends TestCase
         $this->priceService = new PriceService($this->customerRepo, $this->thirdPartyPrices, $this->couponRepo, $this->productRepo);
     }
 
+
+    // o data trec prin "imperative shell"
     function testComputePrices1(): void
     {
         $coupon1 = new Coupon(7, 2, true, ProductCategory::HOME);
@@ -44,4 +46,23 @@ class PriceServiceTest extends TestCase
         assertEquals(5, $result[2]);
     }
 
+
+
+    function testComputePricesPeAiaPura(): void
+    {
+        $coupon1 = new Coupon(7, 2, true, ProductCategory::HOME);
+        $coupon2 = new Coupon(8, 4, true, ProductCategory::ELECTRONICS);
+        $product1 = new Product(1, ProductCategory::HOME);
+        $product2 = new Product(2, ProductCategory::KIDS);
+        $this->couponRepo->expects(self::exactly(1))->method('markUsedCoupons')->with(13, [7]);
+
+        $result = $this->priceService->computePricesPureInternal(
+            [$product1, $product2],
+            [1=>10, 2=>5.0],
+            new Customer([$coupon1, $coupon2])
+        );
+
+        assertEquals(8, $result[1]);
+        assertEquals(5, $result[2]);
+    }
 }

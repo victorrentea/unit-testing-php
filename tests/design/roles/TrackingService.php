@@ -8,8 +8,9 @@ class TrackingService
     {
     }
 
-    function markDepartingWarehouse(string $awb, int $warehouseId, array $trackingProviders)
+    function markDepartingWarehouse(string $awb, int $warehouseId)
     {
+        $trackingProviders = $this->trackingProviderRepo->findByAwb($awb);
         //$trackingProviders
     }
 }

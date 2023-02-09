@@ -21,7 +21,7 @@ class FeatureContext extends \PHPUnit\Framework\TestCase implements Context
     }
 
     /**
-     * @Then /^The score is "(.+)"$/
+     * @Then /^The final score is "(.+)"$/
      */
     public function theScoreIs(string $expected)
     {

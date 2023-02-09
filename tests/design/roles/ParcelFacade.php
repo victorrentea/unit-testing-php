@@ -9,7 +9,6 @@ class ParcelFacade
         private readonly DisplayService       $displayService,
         private readonly PlatformService      $platformService,
         private readonly TrackingService      $trackingService,
-        private readonly TrackingProviderRepo $trackingProviderRepo,
     )
     {
     }
@@ -19,11 +18,9 @@ class ParcelFacade
         $parcel = $this->parcelRepo->findByBarcode($barcode);
 
         $this->displayService->displayAWB($parcel);
-        if ($parcel->partOfCompositeShipment) {
-            $this->displayService->displayMultiParcelWarning();
-        }
+
         $this->platformService->addParcel($parcel);
-        $trackingProviders = $this->trackingProviderRepo->findByAwb($parcel->awb);
-        $this->trackingService->markDepartingWarehouse($parcel->awb, $warehouseId, $trackingProviders);
+
+        $this->trackingService->markDepartingWarehouse($parcel->awb, $warehouseId);
     }
 }

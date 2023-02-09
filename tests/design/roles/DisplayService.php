@@ -6,6 +6,9 @@ class DisplayService
 {
     function displayAWB(Parcel $parcel)
     {
+        if ($parcel->partOfCompositeShipment) {
+            $this->displayMultiParcelWarning();
+        }
         echo "Display barcode " . $parcel->barcode;
     }
 

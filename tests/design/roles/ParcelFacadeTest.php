@@ -36,11 +36,24 @@ class ParcelFacadeTest extends TestCase
         $parcel = new Parcel("BARCODE", "AWB", true);
         $this->parcelRepo->method('findByBarcode')->with('BARCODE')->willReturn($parcel);
         $trackingProviders = [new TrackingProvider(1)];
-        $this->trackingProviderRepo->method('findByAwb')->with('AWB')->willReturn($trackingProviders);
+
+        // stubbing: inveti o metoda ce sa-ti intoarca in codul setat -> "QUERIES"
+        $this->trackingProviderRepo->expects(self::once())->method('findByAwb')
+            ->with('AWB')->willReturn($trackingProviders);
+
+//        $this->vatCalculatorMock->method('calculateVAT')->willReturn(15.0);
+// nu mockuiesti functii din *Util: ci ar trebui ca acele fct sa fie robuste la date corupte -> sa nu crape.
+
+        // mocking: verifici ca un apel de metoda chiar s-a intamplat -> "COMMANDS"
         $this->displayService->expects(self::once())->method('displayAWB')->with($parcel);
-        $this->displayService->expects(self::once())->method('displayMultiParcelWarning');
-        $this->platformService->expects(self::once())->method('addParcel')->with($parcel);
-        $this->trackingService->expects(self::once())->method('markDepartingWarehouse')->with('AWB', 17, $trackingProviders);
+
+        $this->displayService->expects(self::once())
+            ->method('displayMultiParcelWarning');
+        $this->platformService->expects(self::once())->method('addParcel')
+            ->with($parcel);
+        $this->trackingService->expects(self::once())
+            ->method('markDepartingWarehouse')
+            ->with('AWB', 17, $trackingProviders);
 
         $this->target->processParcel("BARCODE",17);
     }
