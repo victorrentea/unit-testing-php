@@ -2,3 +2,5 @@
 *.phar
 /composer.lock
 /.phpunit.result.cache
+
+prod/
