@@ -5,7 +5,7 @@ namespace PhpUnitWorkshopTest\design\purity;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use PhpUnitWorkshopTest\design\fixturecreep\Dependency;
-use PhpUnitWorkshopTest\design\fixturecreep\FastFood;
+use PhpUnitWorkshopTest\design\fixturecreep\ShawarmaFood;
 use function PHPUnit\Framework\assertEquals;
 
 class PriceServiceTest extends TestCase

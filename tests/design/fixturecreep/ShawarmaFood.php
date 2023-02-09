@@ -4,7 +4,7 @@ namespace PhpUnitWorkshopTest\design\fixturecreep;
 
 use Exception;
 
-class FastFood
+class ShawarmaFood
 {
     public function __construct(private readonly Dependency $dependency)
     {
@@ -17,14 +17,5 @@ class FastFood
         }
         // complex logic complicat + 7 teste
         return "Yummy Shawarma";
-    }
-
-    function makeTzatziki(): string
-    {
-        if (!$this->dependency->isCucumberAllowed()) {
-            throw new Exception("That's not a tzatziki anymore");
-        }
-        // complex logic + 7 teste
-        return "Cold Tzatziki";
     }
 }
