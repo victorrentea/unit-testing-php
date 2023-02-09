@@ -4,6 +4,8 @@ namespace PhpUnitWorkshopTest\design\creepymother;
 
 class Customer
 {
+    // 1) doar Doctrine le pasa de astea
+    /** @Size(min=5) */
     private string $name;
     private string $shippingAddress;
     private string $billingAddress;
@@ -11,6 +13,10 @@ class Customer
 
     public function __construct(string $name, string $shippingAddress, string $billingAddress)
     {
+        // 2 solutia sforaitoare
+        if (strlen($name) < 3) {
+            throw new \Exception("Name too short");
+        }
         $this->name = $name;
         $this->shippingAddress = $shippingAddress;
         $this->billingAddress = $billingAddress;

@@ -9,7 +9,7 @@ class InvoiceServiceTest extends TestCase
 {
     function testInvoice()
     {
-        $customer = new Customer("Joe", "whatever not null", "BillingAddress");
+        $customer = TestDataForInvoicing::marcel();
 
         $invoice = (new InvoiceService())->generateInvoice($customer, "Order1");
 

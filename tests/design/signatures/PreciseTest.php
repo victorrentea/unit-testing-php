@@ -8,10 +8,8 @@ class PreciseTest extends TestCase
 {
     function testPrecise(): void
     {
-        $project = new Project();
-        $project->setPoEmail('boss@my.corp');
 
-        Precise::sendSprintFinishedEmail($project);
+        Precise::sendSprintFinishedEmail('boss@my.corp');
 
         $this->expectOutputString("Sending email to boss@my.corp with subject 'Sprint Finished' and some body");
     }
