@@ -10,7 +10,8 @@ class PriceService
         private readonly CustomerRepo     $customerRepo,
         private readonly ThirdPartyPrices $thirdPartyPrices,
         private readonly CouponRepo       $couponRepo,
-        private readonly ProductRepo      $productRepo
+        private readonly ProductRepo      $productRepo/*,
+        private readonly PriceCalculator $priceCalculator*/
     )
     {
     }
