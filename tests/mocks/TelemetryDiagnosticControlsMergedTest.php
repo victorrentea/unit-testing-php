@@ -17,7 +17,7 @@ class TelemetryDiagnosticControlsMergedTest extends TestCase
 {
     const DIAGNOSTIC = "##diagnostic##";
     private MockObject|TelemetryClient $clientMock;
-    private TelemetryDiagnosticControls $target;
+    private TelemetryDiagnosticControls|MockObject $target;
 
     protected function setUp(): void // runs before each test
     {
@@ -27,6 +27,7 @@ class TelemetryDiagnosticControlsMergedTest extends TestCase
         $this->target = $this->createPartialMock(TelemetryDiagnosticControls::class,
             ['createConfiguration']);
         $this->target->setTelemetryClient($this->clientMock);
+//        $this->target->method("")
 
 //        // Iarta-ma! mama masii ca n-am nevoie de asta; cum o se uite la asta cine mentine testul?
 //        $this->clientMock->method('getVersion')->willReturn(new ClientVersion(9,9));
